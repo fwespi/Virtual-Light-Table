@@ -609,8 +609,8 @@ function preprocess_loading_fragments(data) {
         imageURL = fragment.recto.url;
         boxPoints = fragment.recto.box;
         polygonPoints = fragment.recto.polygon;
-        autoModelID = fragment.recto.auto.modelID;
-        autoMaskPath = fragment.recto.auto.mask;
+        let autoModelID = fragment.recto.auto.modelID; //is never used
+        let autoMaskPath = fragment.recto.auto.mask; //is never used
         ppi = fragment.recto.ppi;
       } else {
         // no recto data available, thus we use the verso data and
@@ -629,8 +629,8 @@ function preprocess_loading_fragments(data) {
         imageURL = fragment.verso.url;
         boxPoints = fragment.verso.box;
         polygonPoints = fragment.verso.polygon;
-        autoModelID = fragment.verso.auto.modelID;
-        autoMaskPath = fragment.verso.auto.mask;
+        let autoModelID = fragment.verso.auto.modelID; //is never used
+        let autoMaskPath = fragment.verso.auto.mask; //is never used
         ppi = fragment.verso.ppi;
       } else {
         // no verso data available, thus we use the recto data and
@@ -663,6 +663,7 @@ function preprocess_loading_fragments(data) {
       } else {
         python = spawn(CONFIG.PYTHON_CMD, [path.join(CONFIG.PYTHON_FOLDER, 'cut_image.py'), imageURL, JSON.stringify(polygonPoints), CONFIG.VLT_FOLDER], {windowsHide: true, stdio: ['ignore', LOGGER.outputfile, LOGGER.outputfile]});
       }
+    }
     const newURL = path.join(CONFIG.TEMP_FOLDER, 'imgs', filename);
     if (!rectoProcessed) {
       fragment.recto.url_view = newURL;
@@ -674,7 +675,7 @@ function preprocess_loading_fragments(data) {
       data.tableData.fragments[fragmentKey] = fragment;
       preprocess_loading_fragments(data);
   });
-    }
+    //}
   }
 }
 
